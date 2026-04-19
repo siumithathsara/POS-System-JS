@@ -1,0 +1,403 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>POS System</title>
+
+<link rel="icon" type="image/png" href="assets/coffee_logo.png">
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- CSS -->
+<link rel="stylesheet" href="css/login.css">
+<link rel="stylesheet" href="css/home.css">
+<link rel="stylesheet" href="css/customer.css">
+<link rel="stylesheet" href="css/item.css">
+<link rel="stylesheet" href="css/order.css">
+
+</head>
+<body>
+
+<!-- ================================================= -->
+<!-- LOGIN PAGE -->
+<!-- ================================================= -->
+
+<div id="loginPage" class="login-box">
+
+    <div class="logo">
+        <img src="assets/coffee_logo.png" alt="">
+    </div>
+
+    <h2>WELCOME BACK</h2>
+    <p>Please enter your details to sign in</p>
+
+    <input type="text" id="username" class="form-control" placeholder="Username">
+    <input type="password" id="password" class="form-control" placeholder="Password">
+
+    <button class="login-btn" id="loginBtn">Sign In</button>
+
+    <div id="errorMsg">Invalid Username or Password</div>
+
+</div>
+
+<!-- ================================================= -->
+<!-- MAIN PAGE -->
+<!-- ================================================= -->
+
+<section id="mainPage" style="display:none;">
+
+<!------------------------------------------- NAVBAR ------------------------------------ -->
+
+<nav class="navbar-custom">
+
+    <div class="nav-logo">
+        <img src="assets/coffee_logo.png" alt="">
+    </div>
+
+    <ul class="nav-menu">
+        <li><a href="#" id="homeNav">Home</a></li>
+        <li><a href="#" id="customerNav">Customer</a></li>
+        <li><a href="#" id="itemNav">Item</a></li>
+        <li><a href="#" id="orderNav">Orders</a></li>
+
+        <li>
+            <a href="#" id="logoutBtn"
+               class="btn btn-outline-danger btn-sm rounded-pill text-decoration-none">
+               Logout
+            </a>
+        </li>
+    </ul>
+
+</nav>
+
+<!-- ================================================= -->
+<!-- HOME PAGE -->
+<!-- ================================================= -->
+
+<section id="homePage" class="dashboard">
+
+    <div class="card-wrapper">
+
+        <div class="dash-card">
+            <img src="assets/customer.png" alt="">
+            <h2 id="customerCount">0</h2>
+            <p>Customer</p>
+        </div>
+
+        <div class="dash-card">
+            <img src="assets/item.png" alt="">
+            <h2 id="itemCount">0</h2>
+            <p>Item</p>
+        </div>
+
+        <div class="dash-card">
+            <img src="assets/orders.png" alt="">
+            <h2 id="orderCount">0</h2>
+            <p>Orders</p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================================================= -->
+<!-- CUSTOMER PAGE -->
+<!-- ================================================= -->
+
+<section id="customerPage" style="display:none;">
+
+<h2 class="customer-title">Customer Management</h2>
+
+<div class="customer-top-area">
+
+    <!-- form -->
+    <div class="customer-form-box">
+
+        <label>Customer ID:</label>
+        <input type="text" id="cusId" readonly>
+        <small class="invalidCusId text-danger"></small>
+
+        <label>Customer Name:</label>
+        <input type="text" id="cusName">
+        <small class="invalidCusName text-danger"></small>
+
+        <label>Customer Address:</label>
+        <input type="text" id="cusAddress">
+        <small class="invalidCusAddress text-danger"></small>
+
+        <label>Customer Salary:</label>
+        <input type="text" id="cusSalary">
+        <small class="invalidCusSalary text-danger"></small>
+
+    </div>
+
+    <!-- search -->
+    <div class="search-box">
+        <button id="searchBtn">
+            <img src="assets/search.png" alt="">
+            Search
+        </button>
+    </div>
+
+</div>
+
+<!-- buttons -->
+<div class="customer-btn-group">
+    <button id="saveBtn">Save</button>
+    <button id="updateBtn">Update</button>
+    <button id="deleteBtn">Delete</button>
+    <button id="resetBtn">Reset</button>
+</div>
+
+<!-- table -->
+<div class="table-area">
+
+<table>
+<thead>
+<tr>
+    <th>Customer ID</th>
+    <th>Customer Name</th>
+    <th>Customer Address</th>
+    <th>Customer Salary</th>
+</tr>
+</thead>
+
+<tbody id="customerTableBody"></tbody>
+
+</table>
+
+</div>
+
+</section>
+
+<!-- ================================================= -->
+<!-- ITEM PAGE -->
+<!-- ================================================= -->
+
+<section id="itemPage" style="display:none;">
+
+<h2 class="item-title">Item Management</h2>
+
+<div class="item-top-area">
+
+<div class="item-form-box">
+
+<label>Item Code:</label>
+<input type="text" id="itemCode">
+
+<label>Item Name:</label>
+<input type="text" id="itemName">
+
+<label>Item Qty:</label>
+<input type="text" id="itemQty">
+
+<label>Unit Price:</label>
+<input type="text" id="unitPrice">
+
+</div>
+
+<div class="item-search-box">
+<button id="itemSearchBtn">
+<img src="assets/search.png" alt="">
+Search
+</button>
+</div>
+
+</div>
+
+<div class="item-btn-group">
+<button id="itemSaveBtn">Save</button>
+<button id="itemUpdateBtn">Update</button>
+<button id="itemDeleteBtn">Delete</button>
+<button id="itemResetBtn">Reset</button>
+</div>
+
+<div class="item-table-area">
+
+<table>
+
+<thead>
+<tr>
+<th>Item Code</th>
+<th>Item Name</th>
+<th>Item Qty</th>
+<th>Unit Price</th>
+</tr>
+</thead>
+
+<tbody id="itemTableBody"></tbody>
+
+</table>
+
+</div>
+
+</section>
+
+<!-- ================================================= -->
+<!-- ORDER PAGE -->
+<!-- ================================================= -->
+
+<section id="orderPage" style="display:none;">
+
+<h2 class="order-title">Order Management</h2>
+
+<div class="order-top-wrapper">
+
+<!-- invoice -->
+<div class="invoice-box">
+
+<div class="box-heading">Invoice Details</div>
+
+<div class="form-grid">
+
+<div>
+<label>Order ID:</label>
+<input type="text" id="orderId">
+</div>
+
+<div>
+<label>Date:</label>
+<input type="date" id="orderDate">
+</div>
+
+<div>
+<label>Customer ID:</label>
+<input type="text" id="orderCustomerId">
+</div>
+
+<div>
+<label>Name:</label>
+<input type="text" id="orderCustomerName">
+</div>
+
+<div>
+<label>Salary:</label>
+<input type="text" id="orderCustomerSalary">
+</div>
+
+</div>
+
+<div class="full-width">
+<label>Address:</label>
+<input type="text" id="orderCustomerAddress">
+</div>
+
+</div>
+
+<!-- item select -->
+<div class="item-select-box">
+
+<div class="box-heading">Item Select</div>
+
+<div class="form-grid">
+
+<div>
+<label>Item Code:</label>
+<input type="text" id="orderItemCode">
+</div>
+
+<div>
+<label>Item Name:</label>
+<input type="text" id="orderItemName">
+</div>
+
+<div>
+<label>Price:</label>
+<input type="text" id="orderItemPrice">
+</div>
+
+<div>
+<label>Qty On Hand:</label>
+<input type="text" id="orderQtyOnHand">
+</div>
+
+</div>
+
+<div class="full-width">
+<label>Order Qty:</label>
+<input type="text" id="orderQty">
+</div>
+
+<div class="btn-right">
+<button id="addItemBtn">Add Item</button>
+</div>
+
+</div>
+
+</div>
+
+<!-- payment -->
+<div class="payment-box">
+
+<h3>Total : <span id="totalText">0.00</span></h3>
+<h3>Sub Total : <span id="subTotalText">0.00</span></h3>
+
+<div class="payment-row">
+
+<div>
+<label>Cash:</label>
+<input type="text" id="cash">
+</div>
+
+<div>
+<label>Discount:</label>
+<input type="text" id="discount">
+</div>
+
+</div>
+
+<div class="full-width">
+<label>Balance:</label>
+<input type="text" id="balance">
+</div>
+
+<div class="btn-right">
+<button id="purchaseBtn">Purchase</button>
+</div>
+
+</div>
+
+<!-- order table -->
+<div class="order-table-area">
+
+<table>
+
+<thead>
+<tr>
+<th>Item Code</th>
+<th>Item Name</th>
+<th>Price</th>
+<th>Qty</th>
+<th>Total</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody id="orderTableBody"></tbody>
+
+</table>
+
+</div>
+
+</section>
+
+</section>
+
+<!-- ================================================= -->
+<!-- SCRIPTS -->
+<!-- ================================================= -->
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script src="main.js"></script>
+
+<script type="module" src="controller/loginController.js"></script>
+<script type="module" src="controller/customerController.js"></script>
+
+
+</body>
+</html>

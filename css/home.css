@@ -1,0 +1,160 @@
+html,body{
+    width:100%;
+    height:100%;
+    margin:0;
+    padding:0;
+}
+
+body{
+    overflow-x:hidden;
+}
+
+#mainPage{
+      display:none;
+    width:100%;
+    min-height:100vh;
+    background:#efeeee;
+}
+
+.dashboard{
+    height: calc(100vh - 70px);  
+    display: flex;
+    justify-content: center;     
+    align-items: center;          
+}
+
+/* Navbar */
+.navbar-custom{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:70px;
+    background:#d9d9d9;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 40px;
+    border-bottom:1px solid #999;
+    z-index:9999;
+}
+
+.nav-logo img{
+    width:45px;
+}
+
+.nav-menu{
+    list-style:none;
+    display:flex;
+    gap:40px;
+    margin:0;
+}
+
+.nav-menu li a{
+    text-decoration:none;
+    color:black;
+    font-size:16px;
+}
+.nav-menu li a{
+    text-decoration:none;
+    color:black;
+    font-size:16px;
+    position:relative;
+    transition:0.3s;
+}
+#logoutBtn:hover{
+    color: #f3f3f3;
+     text-decoration: none !important;
+    
+}
+#logoutBtn::after {
+    display: none !important;
+}
+
+
+.nav-menu li a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-5px;
+    width:0%;
+    height:2px;
+    background:#8c503a;
+    transition:0.3s;
+}
+
+.nav-menu li a:hover{
+    color:#8c503a;
+    
+}
+
+.nav-menu li a:hover::after{
+    width:100%;
+}
+
+
+.card-wrapper{
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.dash-card{
+    width:220px;
+    height:170px;
+    background:#401000;
+    border-radius:18px;
+    color:white;
+    text-align:center;
+    padding-top:20px;
+    transition:all 0.4s ease;
+    cursor:pointer;
+    position:relative;
+}
+
+.dash-card:hover{
+    transform:translateY(-15px);
+    box-shadow:0 20px 35px rgba(0,0,0,0.28);
+}
+
+.dash-card img{
+    width:55px;
+    height:55px;
+}
+
+.dash-card h2{
+    margin-top:10px;
+}
+
+.dash-card p{
+    font-size:24px;
+}
+
+
+
+/* .dashboard,
+#customerPage,
+#itemPage{
+    padding-top:90px;  
+} */
+
+#customerPage,
+#itemPage,
+#homePage{
+    position:relative;
+    z-index:1;
+}
+
+body::before{
+   display:none;
+}
+
+#homePage{
+   padding-top:70px;
+}
+
+#customerPage,
+#itemPage{
+   padding-top:100px;
+}

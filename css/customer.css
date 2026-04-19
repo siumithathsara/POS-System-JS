@@ -1,0 +1,158 @@
+#customerPage{
+     width:100%;
+    min-height:100vh;
+    background:#f3f3f3;
+    padding:180px 30px 40px;
+}
+
+/* Title */
+.customer-title{
+    text-align:center;
+    font-size:34px;
+    font-weight:500;
+    margin-bottom:40px;
+    color:#222;
+}
+
+/* Top Layout */
+.customer-top-area{
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    gap:50px;
+    flex-wrap:wrap;
+    margin-bottom:35px;
+}
+
+/* Form Box */
+.customer-form-box{
+    width:420px;
+    background:#d2bba8;
+    padding:30px 25px;
+    border-radius:22px;
+    box-shadow:0 8px 18px rgba(0,0,0,0.08);
+}
+
+.customer-form-box label{
+    display:block;
+    font-size:18px;
+    margin-bottom:8px;
+    color:#222;
+}
+
+.customer-form-box input{
+    width:100%;
+    height:42px;
+    border:none;
+    outline:none;
+    border-radius:25px;
+    padding:0 18px;
+    margin-bottom:22px;
+    background:#d9c8bb;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.12);
+    font-size:16px;
+}
+
+/* Search Button Area */
+.search-box{
+    margin-top:20px;
+}
+
+#searchBtn{
+    width:170px;
+    height:42px;
+    border:none;
+    border-radius:10px;
+    background:#a58f88;
+    color:white;
+    font-size:18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+#searchBtn img{
+    width:18px;
+    height:18px;
+}
+
+#searchBtn:hover{
+    background:#8c503a;
+    transform:translateY(-2px);
+}
+
+/* Buttons */
+.customer-btn-group{
+    display:flex;
+    justify-content:center;
+    gap:18px;
+    flex-wrap:wrap;
+    margin-bottom:35px;
+}
+
+.customer-btn-group button{
+    width:130px;
+    height:42px;
+    border:none;
+    border-radius:10px;
+    background:#6f3e2e;
+    color:white;
+    font-size:17px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.customer-btn-group button:hover{
+    background:#4d2a1f;
+    transform:translateY(-3px);
+}
+
+/* Table */
+.table-area{
+    width:100%;
+    display:flex;
+    justify-content:center;
+}
+
+.table-area table{
+    width:90%;
+    border-collapse:collapse;
+    background:white;
+    box-shadow:0 8px 18px rgba(0,0,0,0.08);
+}
+
+.table-area th{
+    background:#8c503a;
+    color:white;
+    padding:14px;
+    font-size:17px;
+    border:1px solid #744232;
+}
+
+.table-area td{
+    height:55px;
+    border:1px solid #ccc;
+    text-align:center;
+    font-size:16px;
+}
+
+/* Responsive
+@media(max-width:768px){
+
+    .customer-title{
+        font-size:28px;
+    }
+
+    .customer-form-box{
+        width:100%;
+    }
+
+    .table-area table{
+        width:100%;
+        font-size:14px;
+    }
+
+} */
