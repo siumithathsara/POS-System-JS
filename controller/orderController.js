@@ -46,10 +46,6 @@ function refresh() {
     calculateTotals();
 }
 
-/* =======================
-LOAD SELECT OPTIONS
-======================= */
-
 function loadCustomerIds() {
 
     $("#orderCustomerId").empty();
@@ -80,9 +76,6 @@ function loadItemCodes() {
     });
 }
 
-/* =======================
-SEARCH CUSTOMER
-======================= */
 
 function searchCustomer() {
 
@@ -97,9 +90,6 @@ function searchCustomer() {
     $("#orderCustomerAddress").val(c.cusAddress);
 }
 
-/* =======================
-SEARCH ITEM
-======================= */
 
 function searchItem() {
 
@@ -114,9 +104,6 @@ function searchItem() {
     $("#orderQtyOnHand").val(i.itemQty);
 }
 
-/* =======================
-ADD TO CART
-======================= */
 
 function addToCart() {
 
@@ -144,9 +131,6 @@ function addToCart() {
     clearItemFields();
 }
 
-/* =======================
-TABLE
-======================= */
 
 function loadCartTable() {
 
@@ -173,9 +157,6 @@ function loadCartTable() {
     });
 }
 
-/* =======================
-REMOVE
-======================= */
 
 function removeCartItem() {
 
@@ -187,9 +168,6 @@ function removeCartItem() {
     calculateTotals();
 }
 
-/* =======================
-TOTAL + %
-======================= */
 
 function calculateTotals() {
 
@@ -222,9 +200,6 @@ function calculateTotals() {
     $("#balance").val((cash - subTotal).toFixed(2));
 }
 
-/* =======================
-PURCHASE
-======================= */
 
 function purchaseOrder() {
 
@@ -256,9 +231,6 @@ function purchaseOrder() {
     refresh();
 }
 
-/* =======================
-OTHER
-======================= */
 
 function generateOrderId() {
 
