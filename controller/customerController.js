@@ -145,11 +145,15 @@ function validate(c) {
     }
 
     return valid;
-}
 
-/* =========================
-   TABLE
-========================= */
+    
+}
+function formatMoney(value) {
+    if (value === "" || value === null || isNaN(value)) {
+        return "0.00";
+    }
+    return parseFloat(value).toFixed(2);
+}
 
 function loadTable() {
 
@@ -161,7 +165,7 @@ function loadTable() {
                 <td>${c.cusId}</td>
                 <td>${c.cusName}</td>
                 <td>${c.cusAddress}</td>
-                <td>${c.cusSalary}</td>
+                <td>${formatMoney(c.cusSalary)}</td>
             </tr>
         `);
     });
