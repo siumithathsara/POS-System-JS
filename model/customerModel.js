@@ -1,17 +1,17 @@
 import { Customers } from "../db/db.js";
 
-export function saveCustomer(customer){
+export function saveCustomer(customer) {
     Customers.push(customer);
 }
 
-export function getAllCustomers(){
+export function getAllCustomers() {
     return Customers;
 }
 
-export function updateCustomer(index, customer){
+export function updateCustomer(index, customer) {
     Customers[index] = customer;
 }
 
-export function deleteCustomer(index){
-    Customers.splice(index,1);
+export function deleteCustomer(index) {
+    Customers.splice(index, 1);
 }

@@ -24,7 +24,7 @@ function bindEvents() {
 
     $("#customerTableBody").on("click", "tr", tableClick);
 
-   
+
     $("#cusName, #cusAddress").on("input", function () {
         this.value = formatText(this.value);
     });
@@ -146,7 +146,7 @@ function validate(c) {
 
     return valid;
 
-    
+
 }
 function formatMoney(value) {
     if (value === "" || value === null || isNaN(value)) {
@@ -231,5 +231,5 @@ function formatText(value) {
 }
 
 function showMsg(msg) {
-    alert(msg); 
+    alert(msg);
 }
