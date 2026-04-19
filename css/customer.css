@@ -2,7 +2,7 @@
      width:100%;
     min-height:100vh;
     background:#f3f3f3;
-    padding:180px 30px 40px;
+    padding:250px 30px 40px;
 }
 
 /* Title */
@@ -115,6 +115,8 @@
     width:100%;
     display:flex;
     justify-content:center;
+    max-height: 400px;
+    overflow-y: auto;
 }
 
 .table-area table{
@@ -138,6 +140,7 @@
     text-align:center;
     font-size:16px;
 }
+
 
 /* Responsive
 @media(max-width:768px){

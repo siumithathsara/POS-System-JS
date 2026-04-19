@@ -3,104 +3,184 @@ import {
     getAllCustomers,
     updateCustomer,
     deleteCustomer
-} from "../model/customer.js";
+} from "../model/customerModel.js";
 
 $(document).ready(function () {
+    init();
+});
+
+function init() {
     refresh();
-});
+    bindEvents();
+}
 
-/* SAVE */
-$("#saveBtn").click(function () {
+function bindEvents() {
 
-    let customer = {
-        cusId: $("#cusId").val(),
-        cusName: $("#cusName").val(),
-        cusAddress: $("#cusAddress").val(),
-        cusSalary: $("#cusSalary").val()
-    };
+    $("#saveBtn").on("click", saveHandler);
+    $("#updateBtn").on("click", updateHandler);
+    $("#deleteBtn").on("click", deleteHandler);
+    $("#searchBtn").on("click", searchHandler);
+    $("#resetBtn").on("click", refresh);
 
-    if (validate(customer)) {
-        saveCustomer(customer);
-        alert("Customer Saved");
-        refresh();
-    }
+    $("#customerTableBody").on("click", "tr", tableClick);
 
-});
+   
+    $("#cusName, #cusAddress").on("input", function () {
+        this.value = formatText(this.value);
+    });
 
-/* UPDATE */
-$("#updateBtn").click(function () {
+    $("#cusId").on("input", function () {
+        this.value = this.value.toUpperCase();
+    });
 
-    let customer = {
-        cusId: $("#cusId").val(),
-        cusName: $("#cusName").val(),
-        cusAddress: $("#cusAddress").val(),
-        cusSalary: $("#cusSalary").val()
-    };
+}
 
+function saveHandler() {
+
+    let customer = getFormData();
+
+    if (!validate(customer)) return;
+
+    saveCustomer(customer);
+    showMsg("Customer Saved ");
+    refresh();
+}
+
+function updateHandler() {
+
+    let customer = getFormData();
     let customers = getAllCustomers();
 
     let index = customers.findIndex(c => c.cusId === customer.cusId);
 
-    if (index >= 0) {
-        updateCustomer(index, customer);
-        alert("Customer Updated");
-        refresh();
+    if (index === -1) {
+        showMsg("Customer Not Found ");
+        return;
     }
 
-});
+    if (!validate(customer)) return;
 
-/* DELETE */
-$("#deleteBtn").click(function () {
+    updateCustomer(index, customer);
+    showMsg("Customer Updated ✔");
+    refresh();
+}
+
+function deleteHandler() {
 
     let id = $("#cusId").val();
-
     let customers = getAllCustomers();
 
     let index = customers.findIndex(c => c.cusId === id);
 
-    if (index >= 0) {
-        deleteCustomer(index);
-        alert("Customer Deleted");
-        refresh();
-    } else {
-        alert("Customer Not Found");
+    if (index === -1) {
+        showMsg("Customer Not Found ");
+        return;
     }
 
-});
+    deleteCustomer(index);
+    showMsg("Customer Deleted ");
+    refresh();
+}
 
-/* SEARCH */
-$("#searchBtn").click(function () {
+function searchHandler() {
 
     let id = $("#cusId").val();
-
     let customer = getAllCustomers().find(c => c.cusId === id);
 
-    if (customer) {
-        $("#cusName").val(customer.cusName);
-        $("#cusAddress").val(customer.cusAddress);
-        $("#cusSalary").val(customer.cusSalary);
-    } else {
-        alert("Customer Not Found");
+    if (!customer) {
+        showMsg("Customer Not Found ");
+        return;
     }
 
-});
+    setFormData(customer);
+}
 
-/* RESET */
-$("#resetBtn").click(function () {
-    refresh();
-});
 
-/* TABLE CLICK */
-$("#customerTableBody").on("click", "tr", function () {
 
-    $("#cusId").val($(this).children().eq(0).text());
-    $("#cusName").val($(this).children().eq(1).text());
-    $("#cusAddress").val($(this).children().eq(2).text());
-    $("#cusSalary").val($(this).children().eq(3).text());
+function getFormData() {
+    return {
+        cusId: $("#cusId").val().toUpperCase(),
+        cusName: formatText($("#cusName").val()),
+        cusAddress: formatText($("#cusAddress").val()),
+        cusSalary: $("#cusSalary").val()
+    };
+}
 
-});
+function setFormData(c) {
+    $("#cusId").val(c.cusId);
+    $("#cusName").val(c.cusName);
+    $("#cusAddress").val(c.cusAddress);
+    $("#cusSalary").val(c.cusSalary);
+}
 
-/* FUNCTIONS */
+
+function validate(c) {
+
+    let valid = true;
+
+    clearErrors();
+
+    // ID FORMAT
+    if (!/^C\d{3}$/.test(c.cusId)) {
+        setError("invalidCusId", "Use format C001");
+        valid = false;
+    }
+
+    // NAME
+    if (!c.cusName) {
+        setError("invalidCusName", "Enter Name");
+        valid = false;
+    }
+
+    // ADDRESS
+    if (!c.cusAddress) {
+        setError("invalidCusAddress", "Enter Address");
+        valid = false;
+    }
+
+    // SALARY (NUMBER ONLY)
+    if (!/^\d+(\.\d+)?$/.test(c.cusSalary)) {
+        setError("invalidCusSalary", "Salary must be number");
+        valid = false;
+    }
+
+    return valid;
+}
+
+/* =========================
+   TABLE
+========================= */
+
+function loadTable() {
+
+    $("#customerTableBody").empty();
+
+    getAllCustomers().forEach(c => {
+        $("#customerTableBody").append(`
+            <tr>
+                <td>${c.cusId}</td>
+                <td>${c.cusName}</td>
+                <td>${c.cusAddress}</td>
+                <td>${c.cusSalary}</td>
+            </tr>
+        `);
+    });
+
+}
+
+function tableClick() {
+
+    let row = $(this).children();
+
+    setFormData({
+        cusId: row.eq(0).text(),
+        cusName: row.eq(1).text(),
+        cusAddress: row.eq(2).text(),
+        cusSalary: row.eq(3).text()
+    });
+
+}
+
 
 function refresh() {
     clearFields();
@@ -109,14 +189,16 @@ function refresh() {
 }
 
 function clearFields() {
-    $("#cusName").val("");
-    $("#cusAddress").val("");
-    $("#cusSalary").val("");
+    $("#cusName, #cusAddress, #cusSalary").val("");
+    clearErrors();
+}
 
-    $(".invalidCusId").text("");
-    $(".invalidCusName").text("");
-    $(".invalidCusAddress").text("");
-    $(".invalidCusSalary").text("");
+function clearErrors() {
+    $(".invalidCusId, .invalidCusName, .invalidCusAddress, .invalidCusSalary").text("");
+}
+
+function setError(cls, msg) {
+    $("." + cls).text(msg);
 }
 
 function generateId() {
@@ -128,60 +210,22 @@ function generateId() {
         return;
     }
 
-    let lastId = customers[customers.length - 1].cusId;
+    let last = customers[customers.length - 1].cusId;
+    let num = parseInt(last.substring(1)) + 1;
 
-    let num = parseInt(lastId.substring(1)) + 1;
-
-    let newId = "C" + num.toString().padStart(3, "0");
-
-    $("#cusId").val(newId);
+    $("#cusId").val("C" + num.toString().padStart(3, "0"));
 }
 
-function loadTable() {
-
-    $("#customerTableBody").empty();
-
-    let customers = getAllCustomers();
-
-    customers.forEach(c => {
-
-        $("#customerTableBody").append(`
-            <tr>
-                <td>${c.cusId}</td>
-                <td>${c.cusName}</td>
-                <td>${c.cusAddress}</td>
-                <td>${c.cusSalary}</td>
-            </tr>
-        `);
-
-    });
-
+function formatText(value) {
+    return value
+        .toLowerCase()
+        .replace(/\s+/g, " ")
+        .trim()
+        .split(" ")
+        .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(" ");
 }
 
-function validate(customer) {
-
-    let valid = true;
-
-    if (customer.cusName === "") {
-        $(".invalidCusName").text("Enter Name");
-        valid = false;
-    } else {
-        $(".invalidCusName").text("");
-    }
-
-    if (customer.cusAddress === "") {
-        $(".invalidCusAddress").text("Enter Address");
-        valid = false;
-    } else {
-        $(".invalidCusAddress").text("");
-    }
-
-    if (customer.cusSalary === "" || customer.cusSalary <= 0) {
-        $(".invalidCusSalary").text("Invalid Salary");
-        valid = false;
-    } else {
-        $(".invalidCusSalary").text("");
-    }
-
-    return valid;
+function showMsg(msg) {
+    alert(msg); 
 }
